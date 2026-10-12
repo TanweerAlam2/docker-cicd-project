@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -46,8 +47,9 @@ pipeline {
                 ]) {
                     sh '''
                         set +x
-                        echo "$DOCKERHUB_TOKEN" |
-                          docker login -u "$DOCKERHUB_USERNAME" \
+
+                        echo "$DOCKERHUB_TOKEN" | docker login \
+                            -u "$DOCKERHUB_USERNAME" \
                             --password-stdin
 
                         docker push ${IMAGE_REPO}:${BUILD_NUMBER}
@@ -81,6 +83,7 @@ pipeline {
                         echo "Deployment successful"
                         exit 0
                       fi
+
                       sleep 2
                     done
 
